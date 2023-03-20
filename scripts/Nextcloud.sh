@@ -23,19 +23,19 @@ read -p "Press [ENTER] to continue..." null
 echo "You need a domain pointed at your server. An IP address isn't good enough for this script."
 read -p "Press [ENTER] to continue..." null
 
-if [ -n "$DOMAIN" ];then
+if [ -z "$DOMAIN" ];then
   read -p "Domain (example.com): " DOMAIN
 fi
 
-if [ -n "$EMAIL" ]; then
+if [ -z "$EMAIL" ]; then
   read -p "Email (email@example.com): " EMAIL
 fi
 
-if [ -n "$USERNAME" ]; then
+if [ -z "$USERNAME" ]; then
   read -p "Nextcloud Admin username: " USERNAME
 fi
 
-if [ -n "$PASSWORD" ]; then
+if [ -z "$PASSWORD" ]; then
   read -p "Nextcloud admin password: " PASSWORD
 fi
 
