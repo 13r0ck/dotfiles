@@ -12,7 +12,7 @@ PUBLIC_KEY="sk-ssh-ed25519@openssh.com AAAA... email@example.com"
 
 ## END CONFIG
 
-if [ grep -q "^$USERNAME:" /etc/passwd ]; then
+if ! grep -q "^$USERNAME:" /etc/passwd; then
   sudo useradd -d /home/$USERNAME -m -s/bin/bash $USERNAME
   echo "$USERNAME:$DEFAULT_PASS" | chpasswd
   chage -d 0 $USERNAME
