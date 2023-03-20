@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # README:
 # A Simple Script to add Vultr BlockStorage to a sever

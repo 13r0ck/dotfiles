@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # README:
 # A Simple Script to add Vultr BlockStorage to a sever
@@ -18,6 +18,11 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
+echo "Make sure you have set your IaaS prover's firewall settings to allow port 80 and 443."
+read -p "Press [ENTER] to continue..." null
+echo "You need a domain pointed at your server. An IP address isn't good enough for this script."
+read -p "Press [ENTER] to continue..." null
+
 if [ -n "$DOMAIN" ];then
   read -p "Domain (example.com): " DOMAIN
 fi
@@ -33,11 +38,6 @@ fi
 if [ -n "$PASSWORD" ]; then
   read -p "Nextcloud admin password: " PASSWORD
 fi
-
-echo "Make sure you have set your IaaS prover's firewall settings to allow port 80 and 443."
-read -p "Press [ENTER] to continue..." null
-echo "You need a domain pointed at your server. An IP address isn't good enough for this script."
-read -p "Press [ENTER] to continue..." null
 
 sudo snap install nextcloud
 sudo nextcloud.manual-install "$USERNAME" "$PASSWORD"
