@@ -27,9 +27,9 @@ echo "Press [ENTER] to continue..."
 read null
 
 echo "Use alternate directory?"
-echo "If using /script/BlockStorage.sh this value is '/mnt/blockstorage/nextcloud'"
+echo "If using /script/BlockStorage.sh this value is '/mnt/blockstorage/nextcloud/'"
 echo "USe alternate data directory? (Path in '/mnt' or empty to use default): "
-read DATA_LOCATION
+read DATA_DIRECTORY
 
 if [ -z "$DOMAIN" ];then
   echo "Domain (example.com): "
@@ -53,22 +53,20 @@ fi
 
 # Install nextcloud and related dependencies
 sudo snap install nextcloud
-snap install --edge imagick
 
-# Configure nexcloud
-if [ -z "$DATA_LOCATION" ]; then
+# Setup Nextclout and create admin user
+sudo nextcloud.manual-install "$USERNAME" "$PASSWORD"
+
+# Configure data storage location
+if [ -z "$DATA_DIRECTORY" ]; then
+  sudo mkdir -p "$DATA_DIRECTORY"
+  sudo touch "$DATA_DIRECTORY.ocdata"
   sudo snap connect nextcloud:removable-media
-  mkdir -p "$DATA_LOCATION"
-  DATA_LOCATION=${DATA_LOCATION//\//\\/} # Make path safe for sed
-  sed -i "s/'directory' => getenv('NEXTCLOUD_DATA_DIR'),/'directory' => '${DATA_LOCATION}',/" \
-    /var/snap/nextcloud/current/nextcloud/config/autoconfig.php
-  sudo mkdir -p "$DATA_LOCATION"
-  sudo chown -R root:root "$DATA_LOCATION"
-  sudo chmod 0770 "$DATA_LOCATION"
+  sudo nextcloud.occ config:system:set datadirectory --value="$DATA_DIRECTORY"
+  sudo nextcloud.occ maintenance:repair
 fi
 
-# Install and create admin user
-sudo nextcloud.manual-install "$USERNAME" "$PASSWORD"
+# Configure Nextcloud domain
 sudo nextcloud.occ config:system:set trusted_domains 1 --value="$DOMAIN"
 sudo ufw allow 80,443/tcp
 sudo nextcloud.enable-https lets-encrypt
