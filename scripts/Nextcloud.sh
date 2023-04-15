@@ -58,7 +58,7 @@ sudo snap install nextcloud
 sudo nextcloud.manual-install "$USERNAME" "$PASSWORD"
 
 # Configure data storage location
-if [ -z "$DATA_DIRECTORY" ]; then
+if [ -n "$DATA_DIRECTORY" ]; then
   sudo mkdir -p "$DATA_DIRECTORY"
   sudo touch "$DATA_DIRECTORY.ocdata"
   sudo snap connect nextcloud:removable-media
