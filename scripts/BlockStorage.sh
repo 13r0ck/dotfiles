@@ -16,7 +16,8 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 echo "Make sure your have attached the Block Storage to this server in the Vultr management console."
-read -p "Press [ENTER] to continue..." null
+echo "Press [ENTER] to continue..."
+read null
 
 parted -s $BLK mklabel gpt
 parted -s $BLK unit mib mkpart primary 0% 100%

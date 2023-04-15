@@ -20,28 +20,35 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 echo "Make sure you have set your IaaS prover's firewall settings to allow port 80 and 443."
-read -pr "Press [ENTER] to continue..." null
+echo "Press [ENTER] to continue..."
+read null
 echo "You need a domain pointed at your server. An IP address isn't good enough for this script."
-read -pr "Press [ENTER] to continue..." null
+echo "Press [ENTER] to continue..."
+read null
 
 echo "Use alternate directory?"
 echo "If using /script/BlockStorage.sh this value is '/mnt/blockstorage/nextcloud'"
-read -pr "USe alternate data directory? (Path in '/mnt' or empty to use default): " DATA_LOCATION
+echo "USe alternate data directory? (Path in '/mnt' or empty to use default): "
+read DATA_LOCATION
 
 if [ -z "$DOMAIN" ];then
-  read -pr "Domain (example.com): " DOMAIN
+  echo "Domain (example.com): "
+  read DOMAIN
 fi
 
 if [ -z "$EMAIL" ]; then
-  read -pr "Email (email@example.com): " EMAIL
+  echo "Email (email@example.com): "
+  read EMAIL
 fi
 
 if [ -z "$USERNAME" ]; then
-  read -pr "Nextcloud Admin username: " USERNAME
+  echo "Nextcloud Admin username: "
+  read USERNAME
 fi
 
 if [ -z "$PASSWORD" ]; then
-  read -pr "Nextcloud admin password: " PASSWORD
+  echo "Nextcloud admin password: "
+  read PASSWORD
 fi
 
 sudo snap install nextcloud
