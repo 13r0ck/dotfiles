@@ -70,7 +70,13 @@ if [ -z "$DATA_LOCATION" ]; then
   sudo chmod 0770 "$DATA_LOCATION"
 fi
 
+# Install and create admin user
 sudo nextcloud.manual-install "$USERNAME" "$PASSWORD"
 sudo nextcloud.occ config:system:set trusted_domains 1 --value="$DOMAIN"
 sudo ufw allow 80,443/tcp
 sudo nextcloud.enable-https lets-encrypt
+
+# Enable Encryption
+sudo nextcloud.occ app:install encryption
+sudo nextcloud.occ app:enable encryption
+sudo nextcloud.occ encryption:enable
