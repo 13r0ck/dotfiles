@@ -31,10 +31,6 @@ echo "If using /script/BlockStorage.sh this value is '/mnt/blockstorage/nextclou
 echo "USe alternate data directory? (Path in '/mnt' or empty to use default): "
 read DATA_LOCATION
 
-if [ -z "$DATA_LOCATION" ]; then
-  DATA_LOCATION=${DATA_LOCATION//\//\\/} # Make path safe for sed
-fi
-
 if [ -z "$DOMAIN" ];then
   echo "Domain (example.com): "
   read DOMAIN
@@ -63,6 +59,7 @@ snap install --edge imagick
 if [ -z "$DATA_LOCATION" ]; then
   sudo snap connect nextcloud:removable-media
   mkdir -p "$DATA_LOCATION"
+  DATA_LOCATION=${DATA_LOCATION//\//\\/} # Make path safe for sed
   sed -i "s/'directory' => getenv('NEXTCLOUD_DATA_DIR'),/'directory' => '${DATA_LOCATION}',/" \
     /var/snap/nextcloud/current/nextcloud/config/autoconfig.php
   sudo mkdir -p "$DATA_LOCATION"
