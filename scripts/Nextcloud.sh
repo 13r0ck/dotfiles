@@ -55,8 +55,11 @@ if [ -z "$PASSWORD" ]; then
   read PASSWORD
 fi
 
+# Install nextcloud and related dependencies
 sudo snap install nextcloud
+snap install --edge imagick
 
+# Configure nexcloud
 if [ -z "$DATA_LOCATION" ]; then
   sudo snap connect nextcloud:removable-media
   mkdir -p "$DATA_LOCATION"
