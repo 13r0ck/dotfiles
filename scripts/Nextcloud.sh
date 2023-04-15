@@ -31,6 +31,10 @@ echo "If using /script/BlockStorage.sh this value is '/mnt/blockstorage/nextclou
 echo "USe alternate data directory? (Path in '/mnt' or empty to use default): "
 read DATA_LOCATION
 
+if [ -z "$DATA_LOCATION" ]; then
+  DATA_LOCATION=${DATA_LOCATION//\//\\/} # Make path safe for sed
+fi
+
 if [ -z "$DOMAIN" ];then
   echo "Domain (example.com): "
   read DOMAIN
