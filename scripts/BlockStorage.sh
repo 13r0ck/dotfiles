@@ -20,8 +20,11 @@ echo "Press [ENTER] to continue..."
 read null
 
 parted -s $BLK mklabel gpt
+sleep 10
 parted -s $BLK unit mib mkpart primary 0% 100%
+sleep 10
 mkfs.ext4 "${BLK}1"
+sleep 10
 mkdir /mnt/blockstorage
 echo /dev/vdb1 /mnt/blockstorage ext4 defaults,noatime,nofail 0 0 >> /etc/fstab
 mount /mnt/blockstorage
