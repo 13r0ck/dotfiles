@@ -27,5 +27,7 @@ if ! grep -q "^$USERNAME:" /etc/passwd; then
       # Set ownership of home directory and SSH directory to the new user
       chown -R $USERNAME:$USERNAME /home/$username
       sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+      sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config.d/50-cloud-init.conf
+      systemctl restart sshd
   fi
 fi
