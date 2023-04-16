@@ -75,3 +75,7 @@ sudo nextcloud.enable-https lets-encrypt
 sudo nextcloud.occ app:install encryption
 sudo nextcloud.occ app:enable encryption
 sudo nextcloud.occ encryption:enable
+
+# Enable Two-Factor Authentication
+sudo nextcloud.occ app:install twofactor_totp
+sudo nextcloud.occ app:enable twofactor_totp
